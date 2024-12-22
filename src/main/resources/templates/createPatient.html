@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemed - Kreiraj Pacijenta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4" style="width: 400px;">
+        <h1 class="text-center mb-4">TELEMED</h1>
+        <h4 class="text-center mb-4">Kreiraj Pacijenta</h4>
+
+        <form action="/createPatient" method="post">
+            <div class="mb-3">
+                <label for="ime" class="form-label">Ime</label>
+                <input type="text" class="form-control" id="ime" name="ime" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="prezime" class="form-label">Prezime</label>
+                <input type="text" class="form-control" id="prezime" name="prezime" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="lozinka" class="form-label">Lozinka</label>
+                <input type="password" class="form-control" id="lozinka" name="lozinka" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ponoviLozinku" class="form-label">Ponovi lozinku</label>
+                <input type="password" class="form-control" id="ponoviLozinku" name="ponoviLozinku" required>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/doctorLanding" class="btn btn-outline-dark">Odustani</a>
+                <button type="submit" class="btn btn-primary">Spremi</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
