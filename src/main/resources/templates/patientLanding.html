@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemed</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4 bg-white">
+<div class="container bg-light p-3">
+    <h1 class="mb-4">TELEMED</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <p class="mb-0">Ivo Ivić</p>
+        </div>
+        <a href="/patientEntry" class="btn btn-outline-secondary">Novi unos</a>
+        <a href="/login" class="btn btn-outline-secondary">Odjava</a>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Datum unosa</th>
+            <th>Opis</th>
+            <th>Otkucaji srca</th>
+            <th>Diastolički</th>
+            <th>Sistolički</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patientEntries}">
+            <td th:text="${patient.id}">1</td>
+            <td th:text="${patient.date}">17.05.2022</td>
+            <td th:text="${patient.description}">Osjećam se normalno</td>
+            <td th:text="${patient.heartRate}">72</td>
+            <td th:text="${patient.diastolic}">100</td>
+            <td th:text="${patient.systolic}">80</td>
+            <td>
+                <button class="btn btn-outline-secondary btn-sm">Uredi</button>
+                <a th:href="@{'/deletePatientEntry?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
