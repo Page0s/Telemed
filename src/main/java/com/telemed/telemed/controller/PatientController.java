@@ -39,7 +39,7 @@ public class PatientController {
 
     @GetMapping("/patientEntry")
     public String showPatientEntryForm() {
-        return "patientEntry.html";
+        return "patientEntry";
     }
 
     @GetMapping("/patientLanding")
