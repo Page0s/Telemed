@@ -19,7 +19,7 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>id</th>
+            <th>#</th>
             <th>Datum unosa</th>
             <th>Opis</th>
             <th>Otkucaji srca</th>
@@ -29,8 +29,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="patient : ${patientEntries}">
-            <td th:text="${patient.id}">1</td>
+        <tr th:each="patient, iterStat : ${patientEntries}">
+            <td th:text="${iterStat.count}">1</td>
             <td th:text="${patient.date}">17.05.2022</td>
             <td th:text="${patient.description}">Osjećam se normalno</td>
             <td th:text="${patient.heartRate}">72</td>
