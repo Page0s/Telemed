@@ -2,6 +2,7 @@ package com.telemed.telemed.controller;
 
 import com.telemed.telemed.model.PatientEntry;
 import com.telemed.telemed.repository.PatientRepository;
+import com.telemed.telemed.service.PatientService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PatientController {
 
+    private final PatientService patientService;
     private final PatientRepository patientRepository;
 
-    public PatientController(PatientRepository patientRepository) {
+    public PatientController(PatientService patientService, PatientRepository patientRepository) {
+        this.patientService = patientService;
         this.patientRepository = patientRepository;
     }
 
@@ -25,13 +28,14 @@ public class PatientController {
                                   @RequestParam("description") String description) {
 
         PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
-        patientRepository.save(patientEntry);
+        patientService.savePatientEntry(patientEntry);
         return "redirect:/patientLanding";
 
     }
+
     @GetMapping("/patientLanding")
     public String showPatientLanding(Model model) {
-        model.addAttribute("patientEntries", patientRepository.findAll());
+        model.addAttribute("patientEntries", patientService.getAllPatientEntries());
         return "patientLanding";
     }
 
