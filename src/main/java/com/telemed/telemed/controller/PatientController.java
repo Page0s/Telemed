@@ -56,7 +56,7 @@ public class PatientController {
                                      @RequestParam("date") String date,
                                      @RequestParam("description") String description) {
 
-        PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
+        PatientEntry patientEntry = new PatientEntry("temp", heartRate, systolic, diastolic, date, description);
         patientService.updatePatientEntryById(id, patientEntry);
 
         return "redirect:/patientLanding";

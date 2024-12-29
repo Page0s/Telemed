@@ -19,6 +19,14 @@ public class PatientEntry {
         this.description = description;
     }
 
+    public PatientEntry(String note, int heartRate, int systolic, int diastolic, String date, String description) {
+        this.heartRate = heartRate;
+        this.systolic = systolic;
+        this.diastolic = diastolic;
+        this.date = date;
+        this.description = description;
+    }
+
     // Getters and Setters
     public int getId() {
         return id;
