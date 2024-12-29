@@ -23,4 +23,16 @@ public class PatientService {
     public void savePatientEntry(PatientEntry patientEntry) {
         patientRepository.save(patientEntry);
     }
+
+    public void deletePatientEntry(int id) {
+        patientRepository.deleteById(id);
+    }
+
+    public PatientEntry findPatientEntryById(int id) {
+        return patientRepository.findById(id);
+    }
+        
+    public void updatePatientEntryById(int id, PatientEntry updatedPatientEntry) {
+        patientRepository.updateById(id, updatedPatientEntry);
+    }
 }

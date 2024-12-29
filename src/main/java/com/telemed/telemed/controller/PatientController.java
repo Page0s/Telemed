@@ -41,13 +41,13 @@ public class PatientController {
 
     @GetMapping("/deletePatientEntry")
     public String deletePatientEntry(@RequestParam("id") int id) {
-        patientRepository.deleteById(id);
+        patientService.deletePatientEntry(id);
         return "redirect:/patientLanding";
     }
 
     @GetMapping("/editPatientEntry")
     public String editPatientEntry(@RequestParam("id") int id, Model model) {
-         model.addAttribute("patientEntry", patientRepository.findById(id));
+         model.addAttribute("patientEntry", patientService.findPatientEntryById(id));
         return "editPatientEntry";
     }
 
@@ -59,13 +59,8 @@ public class PatientController {
                                      @RequestParam("date") String date,
                                      @RequestParam("description") String description) {
 
-        PatientEntry patientEntry = patientRepository.findById(id);
-
-        patientEntry.setHeartRate(heartRate);
-        patientEntry.setSystolic(systolic);
-        patientEntry.setDiastolic(diastolic);
-        patientEntry.setDate(date);
-        patientEntry.setDescription(description);
+        PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
+        patientService.updatePatientEntryById(id, patientEntry);
 
         return "redirect:/patientLanding";
     }
