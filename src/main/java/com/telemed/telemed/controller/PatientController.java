@@ -1,7 +1,7 @@
 package com.telemed.telemed.controller;
 
 import com.telemed.telemed.model.PatientEntry;
-import com.telemed.telemed.repository.PatientRepository;
+import com.telemed.telemed.service.PatientService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PatientController {
 
-    private final PatientRepository patientRepository;
+    private final PatientService patientService;
 
-    public PatientController(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
     }
 
     @GetMapping("/addPatientEntry")
@@ -25,25 +25,26 @@ public class PatientController {
                                   @RequestParam("description") String description) {
 
         PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
-        patientRepository.save(patientEntry);
+        patientService.savePatientEntry(patientEntry);
         return "redirect:/patientLanding";
 
     }
+
     @GetMapping("/patientLanding")
     public String showPatientLanding(Model model) {
-        model.addAttribute("patientEntries", patientRepository.findAll());
+        model.addAttribute("patientEntries", patientService.getAllPatientEntries());
         return "patientLanding";
     }
 
     @GetMapping("/deletePatientEntry")
     public String deletePatientEntry(@RequestParam("id") int id) {
-        patientRepository.deleteById(id);
+        patientService.deletePatientEntry(id);
         return "redirect:/patientLanding";
     }
 
     @GetMapping("/editPatientEntry")
     public String editPatientEntry(@RequestParam("id") int id, Model model) {
-         model.addAttribute("patientEntry", patientRepository.findById(id));
+         model.addAttribute("patientEntry", patientService.findPatientEntryById(id));
         return "editPatientEntry";
     }
 
@@ -55,13 +56,8 @@ public class PatientController {
                                      @RequestParam("date") String date,
                                      @RequestParam("description") String description) {
 
-        PatientEntry patientEntry = patientRepository.findById(id);
-
-        patientEntry.setHeartRate(heartRate);
-        patientEntry.setSystolic(systolic);
-        patientEntry.setDiastolic(diastolic);
-        patientEntry.setDate(date);
-        patientEntry.setDescription(description);
+        PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
+        patientService.updatePatientEntryById(id, patientEntry);
 
         return "redirect:/patientLanding";
     }

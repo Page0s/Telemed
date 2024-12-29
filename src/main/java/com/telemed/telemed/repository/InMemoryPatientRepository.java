@@ -39,4 +39,19 @@ public class InMemoryPatientRepository implements PatientRepository {
     public void deleteById(int id) {
         patientEntries.removeIf(patientEntry -> patientEntry.getId() == id);
     }
+
+    @Override
+    public void updateById(int id, PatientEntry updatedPatientEntry) {
+        
+        for (PatientEntry patientEntry : patientEntries) {
+            if (patientEntry.getId() == id) {
+                patientEntry.setHeartRate(updatedPatientEntry.getHeartRate());
+                patientEntry.setSystolic(updatedPatientEntry.getSystolic());
+                patientEntry.setDiastolic(updatedPatientEntry.getDiastolic());
+                patientEntry.setDate(updatedPatientEntry.getDate());
+                patientEntry.setDescription(updatedPatientEntry.getDescription());
+                break;
+            }
+        }
+    }
 }

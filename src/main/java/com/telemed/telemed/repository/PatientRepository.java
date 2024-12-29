@@ -10,6 +10,7 @@ public interface PatientRepository {
     List<PatientEntry> findAll();
     PatientEntry findById(int id);
     void deleteById(int id);
+    void updateById(int id, PatientEntry updatedPatientEntry);
 }
 
     /**
