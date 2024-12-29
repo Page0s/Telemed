@@ -37,7 +37,7 @@
             <td th:text="${patient.diastolic}">100</td>
             <td th:text="${patient.systolic}">80</td>
             <td>
-                <button class="btn btn-outline-secondary btn-sm">Uredi</button>
+                <a th:href="@{'/editPatientEntry?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
                 <a th:href="@{'/deletePatientEntry?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
             </td>
         </tr>
