@@ -1,7 +1,6 @@
 package com.telemed.telemed.controller;
 
 import com.telemed.telemed.model.PatientEntry;
-import com.telemed.telemed.repository.PatientRepository;
 import com.telemed.telemed.service.PatientService;
 
 import org.springframework.stereotype.Controller;
