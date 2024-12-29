@@ -1,7 +1,6 @@
 package com.telemed.telemed.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.telemed.telemed.model.PatientEntry;
 
@@ -9,7 +8,7 @@ public interface PatientRepository {
 
     void save(PatientEntry patient);
     List<PatientEntry> findAll();
-    Optional<PatientEntry> findById(int id);
+    PatientEntry findById(int id);
     void deleteById(int id);
 }
 

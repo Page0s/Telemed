@@ -41,6 +41,31 @@ public class PatientController {
         return "redirect:/patientLanding";
     }
 
+    @GetMapping("/editPatientEntry")
+    public String editPatientEntry(@RequestParam("id") int id, Model model) {
+         model.addAttribute("patientEntry", patientRepository.findById(id));
+        return "editPatientEntry";
+    }
+
+    @GetMapping("/updatePatientEntry")
+    public String updatePatientEntry(@RequestParam("id") int id,
+                                     @RequestParam("heartRate") int heartRate,
+                                     @RequestParam("systolic") int systolic,
+                                     @RequestParam("diastolic") int diastolic,
+                                     @RequestParam("date") String date,
+                                     @RequestParam("description") String description) {
+
+        PatientEntry patientEntry = patientRepository.findById(id);
+
+        patientEntry.setHeartRate(heartRate);
+        patientEntry.setSystolic(systolic);
+        patientEntry.setDiastolic(diastolic);
+        patientEntry.setDate(date);
+        patientEntry.setDescription(description);
+
+        return "redirect:/patientLanding";
+    }
+
     @GetMapping("/patientEntry")
     public String showPatientEntryForm() {
         return "patientEntry";
