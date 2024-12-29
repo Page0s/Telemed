@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PatientController {
 
     private final PatientService patientService;
-    private final PatientRepository patientRepository;
 
-    public PatientController(PatientService patientService, PatientRepository patientRepository) {
+    public PatientController(PatientService patientService) {
         this.patientService = patientService;
-        this.patientRepository = patientRepository;
     }
 
     @GetMapping("/addPatientEntry")
