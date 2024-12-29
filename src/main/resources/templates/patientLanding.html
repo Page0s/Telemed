@@ -19,7 +19,7 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>id</th>
+            <th>#</th>
             <th>Datum unosa</th>
             <th>Opis</th>
             <th>Otkucaji srca</th>
@@ -29,15 +29,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="patient : ${patientEntries}">
-            <td th:text="${patient.id}">1</td>
+        <tr th:each="patient, iterStat : ${patientEntries}">
+            <td th:text="${iterStat.count}">1</td>
             <td th:text="${patient.date}">17.05.2022</td>
             <td th:text="${patient.description}">Osjećam se normalno</td>
             <td th:text="${patient.heartRate}">72</td>
             <td th:text="${patient.diastolic}">100</td>
             <td th:text="${patient.systolic}">80</td>
             <td>
-                <button class="btn btn-outline-secondary btn-sm">Uredi</button>
+                <a th:href="@{'/editPatientEntry?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
                 <a th:href="@{'/deletePatientEntry?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
             </td>
         </tr>

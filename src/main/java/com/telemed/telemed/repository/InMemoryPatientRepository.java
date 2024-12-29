@@ -2,7 +2,6 @@ package com.telemed.telemed.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -24,10 +23,16 @@ public class InMemoryPatientRepository implements PatientRepository {
     }
 
     @Override
-    public Optional<PatientEntry> findById(int id) {
-        return patientEntries.stream()
-                .filter(patientEntry -> patientEntry.getId() == id)
-                .findFirst();
+    public PatientEntry findById(int id) {
+    
+        PatientEntry patientEntry = null;
+        for (PatientEntry entry : patientEntries) {
+            if (entry.getId() == id) {
+                patientEntry = entry;
+                break;
+            }
+        }
+        return patientEntry;
     }
 
     @Override

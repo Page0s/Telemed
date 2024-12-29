@@ -8,8 +8,10 @@ public class PatientEntry {
     private String date;
     private String description;
 
-    public PatientEntry(int id, int heartRate, int systolic, int diastolic, String date, String description) {
-        this.id = id;
+    private static int counter = 0;
+
+    public PatientEntry(int heartRate, int systolic, int diastolic, String date, String description) {
+        this.id = ++counter;
         this.heartRate = heartRate;
         this.systolic = systolic;
         this.diastolic = diastolic;
