@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemed - Dnevni unos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<div class="card p-4" style="width: 400px;">
+    <h1 class="text-center mb-4">TELEMED</h1>
+    <h4 class="text-center mb-4">Dnevni unos:</h4>
+    <form action="/addPatientEntry" method="get">
+        <div class="mb-3">
+            <label class="form-label">Otkucaji srca</label>
+            <input type="range" class="form-range" min="50" max="200" step="1" value="80" id="otkucaji"
+                   name="heartRate" oninput="document.getElementById('otkucajiValue').textContent = this.value">
+            <div class="text-center"><span id="otkucajiValue">80</span></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sistolički Tlak</label>
+            <input type="range" class="form-range" min="70" max="200" step="1" value="80" id="systolic"
+                   name="systolic" oninput="document.getElementById('systolicValue').textContent = this.value">
+            <div class="text-center"><span id="systolicValue">80</span></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Diastolički Tlak</label>
+            <input type="range" class="form-range" min="60" max="180" step="1" value="120" id="diastolic"
+                   name="diastolic" oninput="document.getElementById('diastolicValue').textContent = this.value">
+            <div class="text-center"><span id="diastolicValue">120</span></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="datum" class="form-label">Datum unosa:</label>
+            <input type="date" class="form-control" id="datum" name="date">
+        </div>
+
+        <div class="mb-3">
+            <label for="opis" class="form-label">Kratak Opis</label>
+            <textarea class="form-control" id="opis" rows="2" name="description" placeholder="Osjećam se..."></textarea>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="/patientLanding" class="btn btn-outline-secondary">Odustani</a>
+            <button class="btn btn-primary" type="submit">Spremi</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
