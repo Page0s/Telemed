@@ -10,36 +10,37 @@
 <div class="card p-4" style="width: 400px;">
     <h1 class="text-center mb-4">TELEMED</h1>
     <h4 class="text-center mb-4">Dnevni unos:</h4>
-    <form action="/addPatientEntry" method="get">
+    <form action="/updatePatientRecord" method="get">
+        <input type="hidden" name="id" th:value="${patientRecord.id}">
         <div class="mb-3">
             <label class="form-label">Otkucaji srca</label>
-            <input type="range" class="form-range" min="50" max="200" step="1" value="80" id="otkucaji"
+            <input th:value="${patientRecord.heartRate}" type="range" class="form-range" min="50" max="200" step="1" value="80" id="otkucaji"
                    name="heartRate" oninput="document.getElementById('otkucajiValue').textContent = this.value">
-            <div class="text-center"><span id="otkucajiValue">80</span></div>
+            <div class="text-center"><span id="otkucajiValue" th:text="${patientRecord.heartRate}">80</span></div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Sistolički Tlak</label>
-            <input type="range" class="form-range" min="70" max="200" step="1" value="80" id="systolic"
+            <input th:value="${patientRecord.systolic}" type="range" class="form-range" min="70" max="200" step="1" value="80" id="systolic"
                    name="systolic" oninput="document.getElementById('systolicValue').textContent = this.value">
-            <div class="text-center"><span id="systolicValue">80</span></div>
+            <div class="text-center"><span id="systolicValue" th:text="${patientRecord.systolic}">80</span></div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Diastolički Tlak</label>
-            <input type="range" class="form-range" min="60" max="180" step="1" value="120" id="diastolic"
+            <input th:value="${patientRecord.diastolic}" type="range" class="form-range" min="60" max="180" step="1" value="120" id="diastolic"
                    name="diastolic" oninput="document.getElementById('diastolicValue').textContent = this.value">
-            <div class="text-center"><span id="diastolicValue">120</span></div>
+            <div class="text-center"><span id="diastolicValue" th:text="${patientRecord.diastolic}">120</span></div>
         </div>
 
         <div class="mb-3">
             <label for="datum" class="form-label">Datum unosa:</label>
-            <input type="date" class="form-control" id="datum" name="date">
+            <input th:value="${patientRecord.date}" type="date" class="form-control" id="datum" name="date">
         </div>
 
         <div class="mb-3">
             <label for="opis" class="form-label">Kratak Opis</label>
-            <textarea class="form-control" id="opis" rows="2" name="description" placeholder="Osjećam se..."></textarea>
+            <textarea th:text="${patientRecord.description}" class="form-control" id="opis" rows="2" name="description" placeholder="Osjećam se..."></textarea>
         </div>
         <div class="d-flex justify-content-between">
             <a href="/patientLanding" class="btn btn-outline-secondary">Odustani</a>
