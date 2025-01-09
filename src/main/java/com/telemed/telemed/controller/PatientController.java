@@ -45,14 +45,14 @@ public class PatientController {
         return "patientLanding";
     }
 
-    // @GetMapping("/deletePatientRecord")
-    // public String deletePatientRecord(@RequestParam("id") int id) {
-    //     patientServiceInMem.deletePatientRecord(id);
-    //     return "redirect:/patientLanding";
-    // }
+    @GetMapping("/deletePatientRecord")
+    public String deletePatientRecord(@RequestParam("id") Long id) {
+        patientService.deletePatientRecord(id);
+        return "redirect:/patientLanding";
+    }
 
     @GetMapping("/editPatientRecord")
-    public String editPatientRecord(@RequestParam("id") Long id, Model model, HttpSession session) {
+    public String editPatientRecord(@RequestParam("id") Long id, Model model) {
         model.addAttribute("patientRecord", patientService.findPatientRecordById(id).get());
         return "editPatientRecord";
     }

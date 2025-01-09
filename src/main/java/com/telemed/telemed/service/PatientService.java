@@ -29,4 +29,8 @@ public class PatientService {
     public Optional<PatientRecord> findPatientRecordById(Long id) {
         return patientRecordRepository.findById(id);
     }
+
+    public void deletePatientRecord(Long id) {
+        patientRecordRepository.deleteById(id);
+    }
 }
