@@ -1,6 +1,7 @@
 package com.telemed.telemed.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,9 @@ public class PatientService {
 
     public List<PatientRecord> getAllPatientRecords(AppUser appUser) {
         return patientRecordRepository.findAllByAppUserId(appUser.getId());
+    }
+
+    public Optional<PatientRecord> findPatientRecordById(Long id) {
+        return patientRecordRepository.findById(id);
     }
 }

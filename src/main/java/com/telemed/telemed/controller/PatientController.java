@@ -7,6 +7,7 @@ import com.telemed.telemed.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,25 +51,34 @@ public class PatientController {
     //     return "redirect:/patientLanding";
     // }
 
-    // @GetMapping("/editPatientRecord")
-    // public String editPatientRecord(@RequestParam("id") int id, Model model) {
-    //      model.addAttribute("patientRecord", patientServiceInMem.findPatientRecordById(id));
-    //     return "editPatientRecord";
-    // }
+    @GetMapping("/editPatientRecord")
+    public String editPatientRecord(@RequestParam("id") Long id, Model model, HttpSession session) {
+        model.addAttribute("patientRecord", patientService.findPatientRecordById(id).get());
+        return "editPatientRecord";
+    }
 
-    // @GetMapping("/updatePatientRecord")
-    // public String updatePatientRecord(@RequestParam("id") int id,
-    //                                  @RequestParam("heartRate") int heartRate,
-    //                                  @RequestParam("systolic") int systolic,
-    //                                  @RequestParam("diastolic") int diastolic,
-    //                                  @RequestParam("date") Date date,
-    //                                  @RequestParam("description") String description) {
+    @GetMapping("/updatePatientRecord")
+    public String updatePatientRecord(@RequestParam("id") Long id,
+                                     @RequestParam("heartRate") int heartRate,
+                                     @RequestParam("systolic") int systolic,
+                                     @RequestParam("diastolic") int diastolic,
+                                     @RequestParam("date") Date date,
+                                     @RequestParam("description") String description) {
 
-    //     PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description, null);
-    //     patientServiceInMem.updatePatientRecordById(id, patientRecord);
+        Optional<PatientRecord> patientRecord = patientService.findPatientRecordById(id);
 
-    //     return "redirect:/patientLanding";
-    // }
+        if (patientRecord.isPresent()) {
+            PatientRecord existingRecord = patientRecord.get();
+            existingRecord.setHeartRate(heartRate);
+            existingRecord.setSystolic(systolic);
+            existingRecord.setDiastolic(diastolic);
+            existingRecord.setDate(date);
+            existingRecord.setDescription(description);
+
+            patientService.savePatientRecord(existingRecord);
+        }
+        return "redirect:/patientLanding";
+    }
 
     @GetMapping("/patientRecord")
     public String showPatientRecordForm() {

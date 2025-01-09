@@ -20,22 +20,22 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>Otkucaji srca</th>
+            <th>Sistolički</th>
+            <th>Diastolički</th>
             <th>Datum unosa</th>
             <th>Opis</th>
-            <th>Otkucaji srca</th>
-            <th>Diastolički</th>
-            <th>Sistolički</th>
             <th>Akcije</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="patient, iterStat : ${patientRecords}">
             <td th:text="${iterStat.count}">1</td>
+            <td th:text="${patient.heartRate}">72</td>
+            <td th:text="${patient.systolic}">100</td>
+            <td th:text="${patient.diastolic}">80</td>
             <td th:text="${patient.date}">17.05.2022</td>
             <td th:text="${patient.description}">Osjećam se normalno</td>
-            <td th:text="${patient.heartRate}">72</td>
-            <td th:text="${patient.diastolic}">100</td>
-            <td th:text="${patient.systolic}">80</td>
             <td>
                 <a th:href="@{'/editPatientRecord?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
                 <a th:href="@{'/deletePatientRecord?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
