@@ -1,5 +1,6 @@
 package com.telemed.telemed.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,11 @@ public class AppUser {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected Long id;
     protected String name;
     protected String surname;
+
+    @Column(unique = true)
     protected String email;
     protected String password;
     protected String address;
@@ -39,11 +42,11 @@ public class AppUser {
     }
 
     // Getters and Setters    
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

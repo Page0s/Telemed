@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 @Entity(name = "user_type")
 public class UserType {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
