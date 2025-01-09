@@ -13,6 +13,8 @@
             <div>
                 <h4 class="mb-0">Telemed</h4>
                 <p class="text-muted mb-0" th:text="${doctor.name + ' ' + doctor.surname}">Doctor Name</p>
+                <p class="text-muted mb-0" th:text="${doctor.address}">Address</p>
+                <p class="text-muted mb-0" th:text="${doctor.phone}">Phone</p>
             </div>
             <div>
                 <a href="/createPatient" class="btn btn-primary me-2">Kreiraj Pacijenta</a>

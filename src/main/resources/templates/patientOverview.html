@@ -13,6 +13,8 @@
             <div>
                 <p class="mb-0"><strong>Pacijent:</strong></p>
                 <p class="mb-0" th:text="${patient.name} + ' ' + ${patient.surname}">Ivo Ivić</p>
+                <p class="mb-0" th:text="${patient.address}">Adresa</p>
+                <p class="mb-0" th:text="${patient.phone}">Telefon</p>
             </div>
             <a href="/doctorLanding" class="btn btn-outline-dark">Nazad</a>
         </div>
