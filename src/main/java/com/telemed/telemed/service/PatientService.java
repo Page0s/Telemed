@@ -4,35 +4,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.telemed.telemed.model.PatientEntry;
-import com.telemed.telemed.repository.PatientRepository;
+import com.telemed.telemed.model.PatientRecord;
+import com.telemed.telemed.repository.PatientRepositoryInMem;
 
 @Service
 public class PatientService {
 
-    private final PatientRepository patientRepository;
+    private final PatientRepositoryInMem patientRepository;
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepositoryInMem patientRepository) {
         this.patientRepository = patientRepository;
     }
 
-    public List<PatientEntry> getAllPatientEntries() {
+    public List<PatientRecord> getAllPatientRecords() {
         return patientRepository.findAll();
     }
 
-    public void savePatientEntry(PatientEntry patientEntry) {
-        patientRepository.save(patientEntry);
+    public void savePatientRecord(PatientRecord patientRecord) {
+        patientRepository.save(patientRecord);
     }
 
-    public void deletePatientEntry(int id) {
+    public void deletePatientRecord(int id) {
         patientRepository.deleteById(id);
     }
 
-    public PatientEntry findPatientEntryById(int id) {
+    public PatientRecord findPatientRecordById(int id) {
         return patientRepository.findById(id);
     }
         
-    public void updatePatientEntryById(int id, PatientEntry updatedPatientEntry) {
-        patientRepository.updateById(id, updatedPatientEntry);
+    public void updatePatientRecordById(int id, PatientRecord updatedPatientRecord) {
+        patientRepository.updateById(id, updatedPatientRecord);
     }
 }

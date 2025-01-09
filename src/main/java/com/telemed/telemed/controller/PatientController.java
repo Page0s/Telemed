@@ -1,6 +1,6 @@
 package com.telemed.telemed.controller;
 
-import com.telemed.telemed.model.PatientEntry;
+import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.service.PatientService;
 
 import org.springframework.stereotype.Controller;
@@ -17,53 +17,53 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/addPatientEntry")
-    public String addPatientEntry(@RequestParam("heartRate") int heartRate,
+    @GetMapping("/addPatientRecord")
+    public String addPatientRecord(@RequestParam("heartRate") int heartRate,
                                   @RequestParam("systolic") int systolic,
                                   @RequestParam("diastolic") int diastolic,
                                   @RequestParam("date") String date,
                                   @RequestParam("description") String description) {
 
-        PatientEntry patientEntry = new PatientEntry(heartRate, systolic, diastolic, date, description);
-        patientService.savePatientEntry(patientEntry);
+        PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
+        patientService.savePatientRecord(patientRecord);
         return "redirect:/patientLanding";
 
     }
 
     @GetMapping("/patientLanding")
     public String showPatientLanding(Model model) {
-        model.addAttribute("patientEntries", patientService.getAllPatientEntries());
+        model.addAttribute("patientRecords", patientService.getAllPatientRecords());
         return "patientLanding";
     }
 
-    @GetMapping("/deletePatientEntry")
-    public String deletePatientEntry(@RequestParam("id") int id) {
-        patientService.deletePatientEntry(id);
+    @GetMapping("/deletePatientRecord")
+    public String deletePatientRecord(@RequestParam("id") int id) {
+        patientService.deletePatientRecord(id);
         return "redirect:/patientLanding";
     }
 
-    @GetMapping("/editPatientEntry")
-    public String editPatientEntry(@RequestParam("id") int id, Model model) {
-         model.addAttribute("patientEntry", patientService.findPatientEntryById(id));
-        return "editPatientEntry";
+    @GetMapping("/editPatientRecord")
+    public String editPatientRecord(@RequestParam("id") int id, Model model) {
+         model.addAttribute("patientRecord", patientService.findPatientRecordById(id));
+        return "editPatientRecord";
     }
 
-    @GetMapping("/updatePatientEntry")
-    public String updatePatientEntry(@RequestParam("id") int id,
+    @GetMapping("/updatePatientRecord")
+    public String updatePatientRecord(@RequestParam("id") int id,
                                      @RequestParam("heartRate") int heartRate,
                                      @RequestParam("systolic") int systolic,
                                      @RequestParam("diastolic") int diastolic,
                                      @RequestParam("date") String date,
                                      @RequestParam("description") String description) {
 
-        PatientEntry patientEntry = new PatientEntry("temp", heartRate, systolic, diastolic, date, description);
-        patientService.updatePatientEntryById(id, patientEntry);
+        PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
+        patientService.updatePatientRecordById(id, patientRecord);
 
         return "redirect:/patientLanding";
     }
 
-    @GetMapping("/patientEntry")
-    public String showPatientEntryForm() {
-        return "patientEntry";
+    @GetMapping("/patientRecord")
+    public String showPatientRecordForm() {
+        return "patientRecord";
     }
 }
