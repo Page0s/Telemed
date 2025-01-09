@@ -1,25 +1,33 @@
 package com.telemed.telemed.model;
 
+import java.sql.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity(name = "patient_record")
 public class PatientRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int heartRate;
     private int systolic;
     private int diastolic;
-    private String date;
+    private Date date;
     private String description;
 
-    private static int counter = 0;
+    @ManyToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
 
-    public PatientRecord(int heartRate, int systolic, int diastolic, String date, String description) {
-        this.id = ++counter;
-        this.heartRate = heartRate;
-        this.systolic = systolic;
-        this.diastolic = diastolic;
-        this.date = date;
-        this.description = description;
-    }
+    // Constructors
+    public PatientRecord() {}
 
-    public PatientRecord(String note, int heartRate, int systolic, int diastolic, String date, String description) {
+    public PatientRecord(int heartRate, int systolic, int diastolic, Date date, String description) {
         this.heartRate = heartRate;
         this.systolic = systolic;
         this.diastolic = diastolic;
@@ -60,11 +68,11 @@ public class PatientRecord {
         this.diastolic = diastolic;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
