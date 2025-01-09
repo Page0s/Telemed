@@ -11,7 +11,7 @@
     <h1 class="mb-4">TELEMED</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
-            <p class="mb-0">Ivo Ivić</p>
+            <p class="mb-0" th:text="${patient.name + ' ' + patient.surname}">Ivo Ivić</p>
         </div>
         <a href="/patientRecord" class="btn btn-outline-secondary">Novi unos</a>
         <a href="/logout" class="btn btn-outline-secondary">Odjava</a>
