@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
+import com.telemed.telemed.model.UserType;
 import com.telemed.telemed.service.PatientService;
 import com.telemed.telemed.service.UserService;
 
@@ -49,5 +52,19 @@ public class DoctorController {
     @GetMapping("/createPatient")
     public String showCreatePatient() {
         return "createPatient";
+    }
+
+    @PostMapping("/createPatient")
+    public String createPatient(@RequestParam("name") String name,
+                                @RequestParam("surname") String surname,
+                                @RequestParam("email") String email,
+                                @RequestParam("address") String address,
+                                @RequestParam("phone") String phone,
+                                @RequestParam("password") String password) {
+        UserType userType = new UserType();
+        userType.setId(2L);
+        AppUser patient = new AppUser(name, surname, email, password, address, phone, userType);
+        userService.saveUser(patient);
+        return "redirect:/doctorLanding";
     }
 }
