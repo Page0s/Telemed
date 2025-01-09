@@ -66,9 +66,4 @@ public class PatientController {
     public String showPatientEntryForm() {
         return "patientEntry";
     }
-
-    @GetMapping("/login")
-    public String showLogin() {
-        return "login";
-    }
 }
