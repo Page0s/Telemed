@@ -3,6 +3,8 @@ package com.telemed.telemed.controller;
 import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.service.PatientService;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ public class PatientController {
     public String addPatientRecord(@RequestParam("heartRate") int heartRate,
                                   @RequestParam("systolic") int systolic,
                                   @RequestParam("diastolic") int diastolic,
-                                  @RequestParam("date") String date,
+                                  @RequestParam("date") Date date,
                                   @RequestParam("description") String description) {
 
         PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
@@ -53,7 +55,7 @@ public class PatientController {
                                      @RequestParam("heartRate") int heartRate,
                                      @RequestParam("systolic") int systolic,
                                      @RequestParam("diastolic") int diastolic,
-                                     @RequestParam("date") String date,
+                                     @RequestParam("date") Date date,
                                      @RequestParam("description") String description) {
 
         PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
