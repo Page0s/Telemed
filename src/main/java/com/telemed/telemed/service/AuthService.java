@@ -5,14 +5,14 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.telemed.telemed.model.AppUser;
-import com.telemed.telemed.repository.UserRepository;
+import com.telemed.telemed.repository.AppUserRepository;
 
 @Service
 public class AuthService {
 
-    private UserRepository userRepository;
+    private AppUserRepository userRepository;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(AppUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -3,8 +3,6 @@ package com.telemed.telemed.controller;
 import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.service.PatientService;
-import com.telemed.telemed.service.PatientServiceInMem;
-import com.telemed.telemed.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 

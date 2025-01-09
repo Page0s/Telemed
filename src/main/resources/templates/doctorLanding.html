@@ -45,7 +45,7 @@
                             <td th:text="${patient.address}">Adresa</td>
                             <td th:text="${patient.phone}">Telefon</td>
                             <td>
-                                <a th:href="@{/patient/{id}(id=${patient.id})}" class="btn btn-sm btn-outline-primary">Pregled</a>
+                                <a th:href="@{/patientOverview/{id}(id=${patient.id})}" class="btn btn-sm btn-outline-primary">Pregled</a>
                             </td>
                         </tr>
                     </tbody>

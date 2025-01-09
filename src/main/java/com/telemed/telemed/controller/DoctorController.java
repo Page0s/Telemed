@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.telemed.telemed.model.AppUser;
+import com.telemed.telemed.model.PatientRecord;
+import com.telemed.telemed.service.PatientService;
 import com.telemed.telemed.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,9 +19,11 @@ import jakarta.servlet.http.HttpSession;
 public class DoctorController {
 
     private final UserService userService;
+    private final PatientService patientService;
 
-    public DoctorController(UserService userService) {
+    public DoctorController(UserService userService, PatientService patientService) {
         this.userService = userService;
+        this.patientService = patientService;
     }
 
     @GetMapping("/doctorLanding")
@@ -32,8 +37,12 @@ public class DoctorController {
         return "doctorLanding";
     }
 
-    @GetMapping("/patientOverview")
-    public String showPatientOverview() {
+    @GetMapping("/patientOverview/{id}")
+    public String showPatientOverview(@PathVariable Long id, Model model) {
+        AppUser patient = userService.getUserById(id).get();
+        List<PatientRecord> patientRecords = patientService.getAllPatientRecords(patient);
+        model.addAttribute("patient", patient);
+        model.addAttribute("patientRecords", patientRecords);
         return "patientOverview";
     }
 
