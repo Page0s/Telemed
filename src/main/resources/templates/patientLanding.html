@@ -11,34 +11,36 @@
     <h1 class="mb-4">TELEMED</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
-            <p class="mb-0">Ivo Ivić</p>
+            <p class="mb-0" th:text="${patient.name + ' ' + patient.surname}">Ivo Ivić</p>
+            <p class="mb-0" th:text="${patient.address}">Adresa</p>
+            <p class="mb-0" th:text="${patient.phone}">Telefon</p>
         </div>
-        <a href="/patientEntry" class="btn btn-outline-secondary">Novi unos</a>
-        <a href="/login" class="btn btn-outline-secondary">Odjava</a>
+        <a href="/patientRecord" class="btn btn-outline-secondary">Novi unos</a>
+        <a href="/logout" class="btn btn-outline-secondary">Odjava</a>
     </div>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>#</th>
+            <th>Otkucaji srca</th>
+            <th>Sistolički</th>
+            <th>Diastolički</th>
             <th>Datum unosa</th>
             <th>Opis</th>
-            <th>Otkucaji srca</th>
-            <th>Diastolički</th>
-            <th>Sistolički</th>
             <th>Akcije</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="patient, iterStat : ${patientEntries}">
+        <tr th:each="patient, iterStat : ${patientRecords}">
             <td th:text="${iterStat.count}">1</td>
+            <td th:text="${patient.heartRate}">72</td>
+            <td th:text="${patient.systolic}">100</td>
+            <td th:text="${patient.diastolic}">80</td>
             <td th:text="${patient.date}">17.05.2022</td>
             <td th:text="${patient.description}">Osjećam se normalno</td>
-            <td th:text="${patient.heartRate}">72</td>
-            <td th:text="${patient.diastolic}">100</td>
-            <td th:text="${patient.systolic}">80</td>
             <td>
-                <a th:href="@{'/editPatientEntry?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
-                <a th:href="@{'/deletePatientEntry?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
+                <a th:href="@{'/editPatientRecord?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
+                <a th:href="@{'/deletePatientRecord?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
             </td>
         </tr>
         </tbody>

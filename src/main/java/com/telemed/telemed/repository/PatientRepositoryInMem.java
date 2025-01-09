@@ -2,15 +2,15 @@ package com.telemed.telemed.repository;
 
 import java.util.List;
 
-import com.telemed.telemed.model.PatientEntry;
+import com.telemed.telemed.model.PatientRecord;
 
-public interface PatientRepository {
+public interface PatientRepositoryInMem {
 
-    void save(PatientEntry patient);
-    List<PatientEntry> findAll();
-    PatientEntry findById(int id);
+    void save(PatientRecord patient);
+    List<PatientRecord> findAll();
+    PatientRecord findById(int id);
     void deleteById(int id);
-    void updateById(int id, PatientEntry updatedPatientEntry);
+    void updateById(int id, PatientRecord updatedPatientRecord);
 }
 
     /**

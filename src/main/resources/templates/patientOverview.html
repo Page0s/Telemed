@@ -12,7 +12,9 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <p class="mb-0"><strong>Pacijent:</strong></p>
-                <p class="mb-0">Ivo Ivić</p>
+                <p class="mb-0" th:text="${patient.name} + ' ' + ${patient.surname}">Ivo Ivić</p>
+                <p class="mb-0" th:text="${patient.address}">Adresa</p>
+                <p class="mb-0" th:text="${patient.phone}">Telefon</p>
             </div>
             <a href="/doctorLanding" class="btn btn-outline-dark">Nazad</a>
         </div>
@@ -20,6 +22,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Datum unosa</th>
                     <th>Opis</th>
                     <th>Otkucaji srca</th>
@@ -28,12 +31,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>17.05.2022</td>
-                    <td>Osjećam se normalno</td>
-                    <td>72</td>
-                    <td>100</td>
-                    <td>80</td>
+                <tr th:each="record, iterStat : ${patientRecords}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${record.date}">17.05.2022</td>
+                    <td th:text="${record.description}">Osjećam se normalno</td>
+                    <td th:text="${record.heartRate}">72</td>
+                    <td th:text="${record.diastolic}">100</td>
+                    <td th:text="${record.systolic}">80</td>
                 </tr>
             </tbody>
         </table>

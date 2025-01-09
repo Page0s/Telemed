@@ -1,38 +1,70 @@
 package com.telemed.telemed.controller;
 
-import com.telemed.telemed.model.Patient;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.telemed.telemed.model.AppUser;
+import com.telemed.telemed.model.PatientRecord;
+import com.telemed.telemed.model.UserType;
+import com.telemed.telemed.service.PatientService;
+import com.telemed.telemed.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class DoctorController {
 
-    private List<Patient> patients;
+    private final UserService userService;
+    private final PatientService patientService;
 
-    public DoctorController() {
-        this.patients = new ArrayList<>();
-
-        patients.add(new Patient(1, "Ivo", "Ivić", "ivo.ivić@telemed.hr", "12345"));
-        patients.add(new Patient(2, "Marko", "Markić", "marko.markic@telemed.hr", "54321"));
+    public DoctorController(UserService userService, PatientService patientService) {
+        this.userService = userService;
+        this.patientService = patientService;
     }
 
     @GetMapping("/doctorLanding")
-    public String showDoctorLanding(Model model) {
+    public String showDoctorLanding(Model model, HttpSession session) {
+
+        AppUser doctor = (AppUser) session.getAttribute("doctor");
+        model.addAttribute("doctor", doctor);
+
+        List<AppUser> patients = userService.getAllPatients(2L);
         model.addAttribute("patients", patients);
         return "doctorLanding";
     }
 
-    @GetMapping("/patientOverview")
-    public String showPatientOverview() {
+    @GetMapping("/patientOverview/{id}")
+    public String showPatientOverview(@PathVariable Long id, Model model) {
+        AppUser patient = userService.getUserById(id).get();
+        List<PatientRecord> patientRecords = patientService.getAllPatientRecords(patient);
+        model.addAttribute("patient", patient);
+        model.addAttribute("patientRecords", patientRecords);
         return "patientOverview";
     }
 
     @GetMapping("/createPatient")
     public String showCreatePatient() {
         return "createPatient";
+    }
+
+    @PostMapping("/createPatient")
+    public String createPatient(@RequestParam("name") String name,
+                                @RequestParam("surname") String surname,
+                                @RequestParam("email") String email,
+                                @RequestParam("address") String address,
+                                @RequestParam("phone") String phone,
+                                @RequestParam("password") String password) {
+        UserType userType = new UserType();
+        userType.setId(2L);
+        AppUser patient = new AppUser(name, surname, email, password, address, phone, userType);
+        userService.saveUser(patient);
+        return "redirect:/doctorLanding";
     }
 }
