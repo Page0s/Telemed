@@ -1,7 +1,10 @@
 package com.telemed.telemed.controller;
 
+import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.service.PatientService;
+
+import jakarta.servlet.http.HttpSession;
 
 import java.sql.Date;
 
@@ -33,7 +36,9 @@ public class PatientController {
     }
 
     @GetMapping("/patientLanding")
-    public String showPatientLanding(Model model) {
+    public String showPatientLanding(Model model, HttpSession session) {
+        AppUser patient = (AppUser) session.getAttribute("patient");
+        model.addAttribute("patient", patient);
         model.addAttribute("patientRecords", patientService.getAllPatientRecords());
         return "patientLanding";
     }
