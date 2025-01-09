@@ -27,7 +27,6 @@ public class AppUser {
     @JoinColumn(name = "user_type_id")
     protected UserType userType;
 
-
     // Constructors
     public AppUser() {}
 

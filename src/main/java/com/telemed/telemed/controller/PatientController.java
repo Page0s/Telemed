@@ -3,6 +3,8 @@ package com.telemed.telemed.controller;
 import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.service.PatientService;
+import com.telemed.telemed.service.PatientServiceInMem;
+import com.telemed.telemed.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,9 +29,10 @@ public class PatientController {
                                   @RequestParam("systolic") int systolic,
                                   @RequestParam("diastolic") int diastolic,
                                   @RequestParam("date") Date date,
-                                  @RequestParam("description") String description) {
+                                  @RequestParam("description") String description, HttpSession session) {
 
-        PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
+        AppUser patient = (AppUser) session.getAttribute("patient");
+        PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description, patient);
         patientService.savePatientRecord(patientRecord);
         return "redirect:/patientLanding";
 
@@ -39,35 +42,35 @@ public class PatientController {
     public String showPatientLanding(Model model, HttpSession session) {
         AppUser patient = (AppUser) session.getAttribute("patient");
         model.addAttribute("patient", patient);
-        model.addAttribute("patientRecords", patientService.getAllPatientRecords());
+        model.addAttribute("patientRecords", patientService.getAllPatientRecords(patient));
         return "patientLanding";
     }
 
-    @GetMapping("/deletePatientRecord")
-    public String deletePatientRecord(@RequestParam("id") int id) {
-        patientService.deletePatientRecord(id);
-        return "redirect:/patientLanding";
-    }
+    // @GetMapping("/deletePatientRecord")
+    // public String deletePatientRecord(@RequestParam("id") int id) {
+    //     patientServiceInMem.deletePatientRecord(id);
+    //     return "redirect:/patientLanding";
+    // }
 
-    @GetMapping("/editPatientRecord")
-    public String editPatientRecord(@RequestParam("id") int id, Model model) {
-         model.addAttribute("patientRecord", patientService.findPatientRecordById(id));
-        return "editPatientRecord";
-    }
+    // @GetMapping("/editPatientRecord")
+    // public String editPatientRecord(@RequestParam("id") int id, Model model) {
+    //      model.addAttribute("patientRecord", patientServiceInMem.findPatientRecordById(id));
+    //     return "editPatientRecord";
+    // }
 
-    @GetMapping("/updatePatientRecord")
-    public String updatePatientRecord(@RequestParam("id") int id,
-                                     @RequestParam("heartRate") int heartRate,
-                                     @RequestParam("systolic") int systolic,
-                                     @RequestParam("diastolic") int diastolic,
-                                     @RequestParam("date") Date date,
-                                     @RequestParam("description") String description) {
+    // @GetMapping("/updatePatientRecord")
+    // public String updatePatientRecord(@RequestParam("id") int id,
+    //                                  @RequestParam("heartRate") int heartRate,
+    //                                  @RequestParam("systolic") int systolic,
+    //                                  @RequestParam("diastolic") int diastolic,
+    //                                  @RequestParam("date") Date date,
+    //                                  @RequestParam("description") String description) {
 
-        PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description);
-        patientService.updatePatientRecordById(id, patientRecord);
+    //     PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description, null);
+    //     patientServiceInMem.updatePatientRecordById(id, patientRecord);
 
-        return "redirect:/patientLanding";
-    }
+    //     return "redirect:/patientLanding";
+    // }
 
     @GetMapping("/patientRecord")
     public String showPatientRecordForm() {

@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 public class PatientRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private int heartRate;
     private int systolic;
     private int diastolic;
@@ -27,20 +27,21 @@ public class PatientRecord {
     // Constructors
     public PatientRecord() {}
 
-    public PatientRecord(int heartRate, int systolic, int diastolic, Date date, String description) {
+    public PatientRecord(int heartRate, int systolic, int diastolic, Date date, String description, AppUser appUser) {
         this.heartRate = heartRate;
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.date = date;
         this.description = description;
+        this.appUser = appUser;
     }
 
     // Getters and Setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
