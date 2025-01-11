@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
 import com.telemed.telemed.model.UserType;
+import com.telemed.telemed.service.AuthService;
 import com.telemed.telemed.service.PatientService;
 import com.telemed.telemed.service.UserService;
 
@@ -23,10 +24,12 @@ public class DoctorController {
 
     private final UserService userService;
     private final PatientService patientService;
+    private final AuthService authService;
 
-    public DoctorController(UserService userService, PatientService patientService) {
+    public DoctorController(UserService userService, PatientService patientService, AuthService authService) {
         this.userService = userService;
         this.patientService = patientService;
+        this.authService = authService;
     }
 
     @GetMapping("/doctorLanding")
@@ -66,5 +69,15 @@ public class DoctorController {
         AppUser patient = new AppUser(name, surname, email, password, address, phone, userType);
         userService.saveUser(patient);
         return "redirect:/doctorLanding";
+    }
+
+    @GetMapping("/initDoctor")
+    public String init() {
+        if (authService.findByEmail("marko.markic@telemed.hr").isPresent())
+            return "login";
+        else {
+            userService.saveUser(new AppUser("Marko", "Markic", "marko.markic@telemed.hr", "marko123", "Savska 111a", "098123456", new UserType(1L, "Doctor")));
+            return "login";
+        }
     }
 }
