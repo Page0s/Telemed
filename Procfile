@@ -1,1 +1,1 @@
-web: java -jar build/libs/telemed-0.0.2-SNAPSHOT.jar -Dserver.port=$PORT $JAR_OPTS
+web: java -jar build/libs/telemed-0.0.3-SNAPSHOT.jar -Dserver.port=$PORT $JAR_OPTS
