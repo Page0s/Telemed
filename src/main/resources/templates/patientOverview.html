@@ -30,9 +30,9 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <p class="mb-0"><strong>Pacijent:</strong></p>
-                <p class="mb-0" th:text="${patient.name} + ' ' + ${patient.surname}">Ivo Ivić</p>
-                <p class="mb-0" th:text="${patient.address}">Adresa</p>
-                <p class="mb-0" th:text="${patient.phone}">Telefon</p>
+                <p class="mb-0"><strong>Ime i prezime:</strong> <span th:text="${patient.name} + ' ' + ${patient.surname}">Ivo Ivić</span></p>
+                <p class="mb-0"><strong>Adresa:</strong> <span th:text="${patient.address}">Adresa</span></p>
+                <p class="mb-0"><strong>Broj telefona:</strong> <span th:text="${patient.phone}">Telefon</span></p>
             </div>
             <a href="/doctorLanding" class="btn btn-outline-dark">Nazad</a>
         </div>

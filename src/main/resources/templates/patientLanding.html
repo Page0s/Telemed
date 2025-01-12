@@ -29,10 +29,11 @@
         <h1 class="mb-4">TELEMED</h1>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <p class="mb-0" th:text="${patient.name + ' ' + patient.surname}">Ivo Ivić</p>
-                <p class="mb-0" th:text="${patient.address}">Adresa</p>
-                <p class="mb-0" th:text="${patient.phone}">Telefon</p>
+                <p class="mb-0"><strong>Ime i prezime:</strong> <span th:text="${patient.name + ' ' + patient.surname}">Ivo Ivić</span></p>
+                <p class="mb-0"><strong>Adresa:</strong> <span th:text="${patient.address}">Adresa</span></p>
+                <p class="mb-0"><strong>Broj telefona:</strong> <span th:text="${patient.phone}">Telefon</span></p>
             </div>
+
             <a href="/patientRecord" class="btn btn-outline-secondary">Novi unos</a>
             <a href="/logout" class="btn btn-outline-secondary">Odjava</a>
         </div>

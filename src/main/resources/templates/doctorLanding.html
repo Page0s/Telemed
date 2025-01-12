@@ -22,10 +22,11 @@
         <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded shadow-sm">
             <div>
                 <h4 class="mb-0">Telemed</h4>
-                <p class="text-muted mb-0" th:text="${doctor.name + ' ' + doctor.surname}">Doctor Name</p>
-                <p class="text-muted mb-0" th:text="${doctor.address}">Address</p>
-                <p class="text-muted mb-0" th:text="${doctor.phone}">Phone</p>
+                <p class="text-muted mb-0"><strong>Doktor:</strong> <span th:text="${doctor.name + ' ' + doctor.surname}">Doctor Name</span></p>
+                <p class="text-muted mb-0"><strong>Adresa:</strong> <span th:text="${doctor.address}">Address</span></p>
+                <p class="text-muted mb-0"><strong>Broj telefona:</strong> <span th:text="${doctor.phone}">Phone</span></p>
             </div>
+
             <div>
                 <a href="/createPatient" class="btn btn-primary me-2">Kreiraj Pacijenta</a>
                 <a href="/logout" class="btn btn-outline-secondary">Odjava</a>
