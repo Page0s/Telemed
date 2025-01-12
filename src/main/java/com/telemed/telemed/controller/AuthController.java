@@ -31,7 +31,7 @@ public class AuthController {
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
         Optional<AppUser> user = appUserRepository.findByEmail(email);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
-            if (user.get().getId() == 1) {
+            if (user.get().getUserType() == 1) {
                 session.setAttribute("doctor", user.get());
                 return "redirect:/doctorLanding";
             } else {
