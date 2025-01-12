@@ -2,7 +2,7 @@ package com.telemed.telemed.controller;
 
 import com.telemed.telemed.model.AppUser;
 import com.telemed.telemed.model.PatientRecord;
-import com.telemed.telemed.service.PatientService;
+import com.telemed.telemed.repository.PatientRecordRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PatientController {
 
-    private final PatientService patientService;
+    private final PatientRecordRepository patientRecordRepository;
 
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
+    public PatientController(PatientRecordRepository patientRecordRepository) {
+        this.patientRecordRepository = patientRecordRepository;
     }
 
     @GetMapping("/addPatientRecord")
@@ -32,28 +32,27 @@ public class PatientController {
 
         AppUser patient = (AppUser) session.getAttribute("patient");
         PatientRecord patientRecord = new PatientRecord(heartRate, systolic, diastolic, date, description, patient);
-        patientService.savePatientRecord(patientRecord);
+        patientRecordRepository.save(patientRecord);
         return "redirect:/patientLanding";
-
     }
 
     @GetMapping("/patientLanding")
     public String showPatientLanding(Model model, HttpSession session) {
-        AppUser patient = (AppUser) session.getAttribute("patient");
-        model.addAttribute("patient", patient);
-        model.addAttribute("patientRecords", patientService.getAllPatientRecords(patient));
+        AppUser appUser = (AppUser) session.getAttribute("patient");
+        model.addAttribute("patient", appUser);
+        model.addAttribute("patientRecords", patientRecordRepository.findAllByAppUserId(appUser.getId()));
         return "patientLanding";
     }
 
     @GetMapping("/deletePatientRecord")
-    public String deletePatientRecord(@RequestParam("id") Long id) {
-        patientService.deletePatientRecord(id);
+    public String deletePatientRecord(@RequestParam("id") Long id, HttpSession session) {
+        patientRecordRepository.deleteById(id);
         return "redirect:/patientLanding";
     }
 
     @GetMapping("/editPatientRecord")
-    public String editPatientRecord(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("patientRecord", patientService.findPatientRecordById(id).get());
+    public String editPatientRecord(@RequestParam("id") Long id, Model model, HttpSession session) {
+        model.addAttribute("patientRecord", patientRecordRepository.findById(id).get());
         return "editPatientRecord";
     }
 
@@ -63,9 +62,9 @@ public class PatientController {
                                      @RequestParam("systolic") int systolic,
                                      @RequestParam("diastolic") int diastolic,
                                      @RequestParam("date") Date date,
-                                     @RequestParam("description") String description) {
+                                     @RequestParam("description") String description, HttpSession session) {
 
-        Optional<PatientRecord> patientRecord = patientService.findPatientRecordById(id);
+        Optional<PatientRecord> patientRecord = patientRecordRepository.findById(id);
 
         if (patientRecord.isPresent()) {
             PatientRecord existingRecord = patientRecord.get();
@@ -75,7 +74,7 @@ public class PatientController {
             existingRecord.setDate(date);
             existingRecord.setDescription(description);
 
-            patientService.savePatientRecord(existingRecord);
+            patientRecordRepository.save(existingRecord);
         }
         return "redirect:/patientLanding";
     }

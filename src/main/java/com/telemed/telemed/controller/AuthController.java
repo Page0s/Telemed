@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.telemed.telemed.model.AppUser;
-import com.telemed.telemed.service.AuthService;
+import com.telemed.telemed.repository.AppUserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
 
-    private AuthService authService;
+    private AppUserRepository appUserRepository;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
     @GetMapping("/login")
@@ -29,9 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
-        
-        Optional<AppUser> user = authService.findByEmail(email);
-
+        Optional<AppUser> user = appUserRepository.findByEmail(email);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             if (user.get().getId() == 1) {
                 session.setAttribute("doctor", user.get());

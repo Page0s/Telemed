@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity(name = "app_user")
 public class AppUser {
@@ -22,15 +20,15 @@ public class AppUser {
     protected String password;
     protected String address;
     protected String phone;
-
-    @ManyToOne
-    @JoinColumn(name = "user_type_id")
-    protected UserType userType;
+    protected int userType;
+    // @ManyToOne
+    // @JoinColumn(name = "user_type_id")
+    // protected UserType userType;
 
     // Constructors
     public AppUser() {}
 
-    public AppUser(String name, String surname, String email, String password, String address, String phone, UserType userType) {
+    public AppUser(String name, String surname, String email, String password, String address, String phone, int userType) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -95,5 +93,13 @@ public class AppUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }
