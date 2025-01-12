@@ -39,7 +39,7 @@ public class AuthController {
                 return "redirect:/patientLanding";
             }
         } else {
-            model.addAttribute("error", "Invalid email or password.");
+            model.addAttribute("error", "Nevažeća adresa e-pošte ili lozinka");
             return "login";
         }
     }
