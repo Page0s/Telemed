@@ -9,15 +9,15 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%; /* Visina za cijelu stranicu */
+            height: 100%;
             display: flex;
             flex-direction: column;
         }
         .content {
-            flex: 1; /* Prostor koji se širi između headera i footera */
+            flex: 1;
         }
         footer {
-            background-color: #f8f9fa; /* Svijetlosiva pozadina */
+            background-color: #f8f9fa;
             text-align: center;
             padding: 10px 0;
         }
@@ -36,7 +36,9 @@
             <a href="/patientRecord" class="btn btn-outline-secondary">Novi unos</a>
             <a href="/logout" class="btn btn-outline-secondary">Odjava</a>
         </div>
-        <table class="table table-bordered table-striped">
+
+        <!-- Desktop prikaz tablice -->
+        <table class="table table-bordered table-striped d-none d-md-table">
             <thead>
             <tr>
                 <th>#</th>
@@ -63,6 +65,24 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- Mobilni prikaz kartica -->
+        <div class="d-block d-md-none">
+            <div th:each="patient : ${patientRecords}" class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Unos #' + ${patient.id}">Unos #1</h5>
+                    <p class="card-text"><strong>Otkucaji srca:</strong> <span th:text="${patient.heartRate}">72</span></p>
+                    <p class="card-text"><strong>Sistolički:</strong> <span th:text="${patient.systolic}">100</span></p>
+                    <p class="card-text"><strong>Diastolički:</strong> <span th:text="${patient.diastolic}">80</span></p>
+                    <p class="card-text"><strong>Datum unosa:</strong> <span th:text="${patient.date}">17.05.2022</span></p>
+                    <p class="card-text"><strong>Opis:</strong> <span th:text="${patient.description}">Osjećam se normalno</span></p>
+                    <div>
+                        <a th:href="@{'/editPatientRecord?id=' + ${patient.id}}" class="btn btn-outline-secondary btn-sm">Uredi</a>
+                        <a th:href="@{'/deletePatientRecord?id=' + ${patient.id}}" class="btn btn-outline-danger btn-sm">Obriši</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <footer class="bg-dark text-white py-3">
